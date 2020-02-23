@@ -1,11 +1,16 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.Calendar;
@@ -28,6 +33,8 @@ public class AddNote extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("New note");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // add back button to the tool bar , android manifested edited to tell the parent activity to be able to know where to go back
+
 
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
@@ -59,12 +66,8 @@ public class AddNote extends AppCompatActivity {
         time = addValue(calendar.get(Calendar.HOUR)) + ":" +   addValue(calendar.get(Calendar.MINUTE));
 
 
-        System.out.println("Date: " + date);
-        System.out.println("Time: " + time);
-
-
-
     }
+
 
     // Show time and date correctly if is time less than 10
     private String addValue(int i){
@@ -73,6 +76,29 @@ public class AddNote extends AppCompatActivity {
         }else{
             return String.valueOf(i);
         }
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.newnote_menu,menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.cancelBtn){
+            System.out.println("cancel button");
+        }
+        else if(item.getItemId() == R.id.saveBtn){
+            System.out.println("save button");
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
