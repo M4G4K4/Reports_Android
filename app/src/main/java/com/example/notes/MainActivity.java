@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.addBtn){
+        Intent intent = new Intent(this,AddNote.class);
+        startActivity(intent);
 
-        }
         return super.onOptionsItemSelected(item);
     }
 }
