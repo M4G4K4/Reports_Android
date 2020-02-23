@@ -6,5 +6,6 @@
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-
+    <string name="ToastSave">Note was saved</string>
+    <string name="ToastCancel">No notes saved</string>
 </resources>

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -92,10 +93,23 @@ public class AddNote extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId() == R.id.cancelBtn){
-            System.out.println("cancel button");
+            title.getText().clear();
+            description.getText().clear();
+            onBackPressed();
+
+            Toast.makeText(this,getResources().getString(R.string.ToastCancel) , Toast.LENGTH_SHORT).show();
         }
         else if(item.getItemId() == R.id.saveBtn){
             System.out.println("save button");
+
+            Notes note = new Notes(title.getText().toString(),description.getText().toString(),time,date);
+
+            DB db = new DB(this);
+            db.addNote(note);
+
+            Toast.makeText(this,getResources().getString(R.string.ToastSave) , Toast.LENGTH_SHORT).show();
+
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
