@@ -69,7 +69,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     // Get 1 note
-    private Notes getNote(long id2){
+    public Notes getNote(long id2){
         // Constructor requirement :
         // String title , String description, String time , String date
 
@@ -86,7 +86,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     // Get all notes
-    private List<Notes> getNotes(){
+    public List<Notes> getNotes(){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -96,7 +96,7 @@ public class DB extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query,null);
 
-        if(cursor != null){
+        if(cursor.moveToFirst()){
             do {
                 Notes notes = new Notes();
 
@@ -110,8 +110,6 @@ public class DB extends SQLiteOpenHelper {
 
             }while (cursor.moveToNext());
         }
-
-
 
         return notesList;
     }

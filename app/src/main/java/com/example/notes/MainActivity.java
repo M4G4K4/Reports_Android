@@ -2,6 +2,7 @@ package com.example.notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,13 +11,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerView;
+    Adapter adapter;
+    List<Notes> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DB db = new DB(this);
+        notes = db.getNotes();
+
         recyclerView = findViewById(R.id.listNotes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new Adapter(this,notes);
+
+        recyclerView.setAdapter(adapter);
+
 
     }
 

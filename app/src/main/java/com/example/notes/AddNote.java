@@ -109,12 +109,17 @@ public class AddNote extends AppCompatActivity {
 
             Toast.makeText(this,getResources().getString(R.string.ToastSave) , Toast.LENGTH_SHORT).show();
 
-            onBackPressed();
+            goToMain();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    // To reload and update with the new note
+    private void goToMain() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
 
 }
