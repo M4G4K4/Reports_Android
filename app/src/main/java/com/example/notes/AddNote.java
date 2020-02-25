@@ -97,7 +97,7 @@ public class AddNote extends AppCompatActivity {
             description.getText().clear();
             onBackPressed();
 
-            Toast.makeText(this,getResources().getString(R.string.ToastCancel) , Toast.LENGTH_SHORT).show();
+
         }
         else if(item.getItemId() == R.id.saveBtn){
             System.out.println("save button");

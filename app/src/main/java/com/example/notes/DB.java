@@ -2,8 +2,12 @@ package com.example.notes;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB extends SQLiteOpenHelper {
 
@@ -63,5 +67,54 @@ public class DB extends SQLiteOpenHelper {
 
         return id;
     }
+
+    // Get 1 note
+    private Notes getNote(long id2){
+        // Constructor requirement :
+        // String title , String description, String time , String date
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(dbTable,new String[]{id,title,description,time,date},id+"=?"
+                ,new String[]{String.valueOf(id2)},null,null,null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+        return new Notes(cursor.getLong(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4));
+    }
+
+    // Get all notes
+    private List<Notes> getNotes(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        List<Notes> notesList = new ArrayList<>();
+
+        String query = "Select * from " + dbTable;
+
+        Cursor cursor = db.rawQuery(query,null);
+
+        if(cursor != null){
+            do {
+                Notes notes = new Notes();
+
+                notes.setId(cursor.getLong(0));
+                notes.setTitle(cursor.getString(1));
+                notes.setDescription(cursor.getString(2));
+                notes.setTime(cursor.getString(3));
+                notes.setDate(cursor.getString(4));
+
+                notesList.add(notes);
+
+            }while (cursor.moveToNext());
+        }
+
+
+
+        return notesList;
+    }
+
 
 }
