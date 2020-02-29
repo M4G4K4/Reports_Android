@@ -4,4 +4,9 @@
     <string name="add" translatable="false">Adicionar</string>
     <string name="description">Descrição</string>
     <string name="title">Titulo</string>
+    <string name="back">Atras</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="ToastSave">Nota foi guardada</string>
+    <string name="ToastCancel">Nehuma nota guardada</string>
 </resources>
