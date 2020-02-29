@@ -63,7 +63,7 @@ public class DB extends SQLiteOpenHelper {
         c.put(date,notes.getDate());
 
         long id = db.insert(dbTable,null,c);
-        System.out.println("ID : " + id);
+
 
         return id;
     }
@@ -105,6 +105,8 @@ public class DB extends SQLiteOpenHelper {
                 notes.setDescription(cursor.getString(2));
                 notes.setTime(cursor.getString(3));
                 notes.setDate(cursor.getString(4));
+
+                System.out.println("DB getNotes ID : " + notes.getId());
 
                 notesList.add(notes);
 

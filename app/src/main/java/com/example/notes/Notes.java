@@ -18,6 +18,7 @@ public class Notes {
         this.description = description;
         this.time = time;
         this.date = date;
+
     }
 
     Notes(long id,String title , String description, String time , String date){

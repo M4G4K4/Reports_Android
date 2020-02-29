@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -25,6 +27,8 @@ public class AddNote extends AppCompatActivity {
     Calendar calendar;
     String date;
     String time;
+    String id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +67,31 @@ public class AddNote extends AppCompatActivity {
 
         // Get current time and date
         calendar = Calendar.getInstance();
-        date = calendar.get(Calendar.DAY_OF_MONTH) + "/" + addValue(calendar.get(Calendar.MONTH) +1)  +  "/" + calendar.get(Calendar.YEAR);
-        time = addValue(calendar.get(Calendar.HOUR)) + ":" +   addValue(calendar.get(Calendar.MINUTE));
-
+        date = calendar.get(Calendar.DAY_OF_MONTH) + "/" + addValueMonth(calendar.get(Calendar.MONTH) +1)  +  "/" + calendar.get(Calendar.YEAR);
+        time = addValueHour(calendar.get(Calendar.HOUR)) + ":" +   addValueMinutes(calendar.get(Calendar.MINUTE));
 
     }
 
 
     // Show time and date correctly if is time less than 10
-    private String addValue(int i){
+    private String addValueMinutes(int i){
+        if(i<10){
+            return "0" + i;
+        }else{
+            return String.valueOf(i);
+        }
+    }
+
+    private String addValueHour(int i){
+        if(i<10){
+
+            return String.valueOf(i + 12);
+        }else{
+            return String.valueOf(i);
+        }
+    }
+
+    private String addValueMonth(int i){
         if(i<10){
             return "0" + i;
         }else{
@@ -96,11 +116,8 @@ public class AddNote extends AppCompatActivity {
             title.getText().clear();
             description.getText().clear();
             onBackPressed();
-
-
         }
         else if(item.getItemId() == R.id.saveBtn){
-            System.out.println("save button");
 
             Notes note = new Notes(title.getText().toString(),description.getText().toString(),time,date);
 

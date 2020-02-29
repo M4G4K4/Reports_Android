@@ -36,17 +36,22 @@ public class MainActivity extends AppCompatActivity {
         DB db = new DB(this);
         notes = db.getNotes();
 
+        // BAD away of doing it
+        for(int i = 0; i<notes.size(); i++){
+            notes.get(i).setId(i);
+        }
+
+
         recyclerView = findViewById(R.id.listNotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
 
-        //recyclerView.setAdapter(adapter);
-
-        Context context;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,
                 2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
+
+
     }
 
 
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         Intent intent = new Intent(this,AddNote.class);
         startActivity(intent);
 

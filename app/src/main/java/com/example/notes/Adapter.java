@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 
@@ -39,14 +40,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         String description = notes.get(position).getDescription();
         String time = notes.get(position).getTime();
         String date = notes.get(position).getDate();
-        long id = notes.get(position).getId();
 
 
         holder.title.setText(title);
         holder.description.setText(description);
         holder.time.setText(time);
         holder.date.setText(date);
-        //holder.id.setText(String.valueOf(id));
+
 
     }
 
@@ -70,13 +70,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             description = itemView.findViewById(R.id.cardDescription);
             time = itemView.findViewById(R.id.cardTime);
             date = itemView.findViewById(R.id.cardDate);
-
+            id = itemView.findViewById(R.id.id);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(), "Clicked -> " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    System.out.println("ID: " + id);
+                    System.out.println("ID note clicked: " + notes.get(getAdapterPosition()).getId());
                 }
             });
 
