@@ -5,42 +5,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private LayoutInflater inflater;
-    private List<Notes> notes;
+    List<Notes> notes;
+    LayoutInflater inflater;
 
 
-
-    Adapter(Context context,List<Notes> notes){
-        this.inflater = LayoutInflater.from(context);
+    Adapter(Context context , List<Notes> notes){
         this.notes = notes;
+        this.inflater = LayoutInflater.from(context);
     }
+
+
 
     @NonNull
     @Override
-    public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = inflater.inflate(R.layout.custom_list_view,parent,false);
-
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.activity_grid,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
         String title = notes.get(position).getTitle();
-        String date = notes.get(position).getDate();
+        String description = notes.get(position).getDescription();
         String time = notes.get(position).getTime();
+        String date = notes.get(position).getDate();
+        long id = notes.get(position).getId();
+
 
         holder.title.setText(title);
-        holder.date.setText(date);
+        holder.description.setText(description);
         holder.time.setText(time);
+        holder.date.setText(date);
+        //holder.id.setText(String.valueOf(id));
 
     }
 
@@ -50,15 +56,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
 
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView title;
+        TextView description;
+        TextView time;
+        TextView date;
+        TextView id;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title,date,time;
-
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder (@NonNull View itemView){
             super(itemView);
-            title = itemView.findViewById(R.id.title);
-            date = itemView.findViewById(R.id.date);
-            time = itemView.findViewById(R.id.time);
+
+            title = itemView.findViewById(R.id.cardTitle);
+            description = itemView.findViewById(R.id.cardDescription);
+            time = itemView.findViewById(R.id.cardTime);
+            date = itemView.findViewById(R.id.cardDate);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "Clicked -> " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    System.out.println("ID: " + id);
+                }
+            });
+
         }
     }
 }

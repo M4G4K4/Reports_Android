@@ -31,8 +31,6 @@ public class Notes {
 
 
     // Getters and setters
-
-
     public long getId() {
         return id;
     }
