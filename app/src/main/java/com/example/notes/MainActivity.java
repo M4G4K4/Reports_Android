@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
         DB db = new DB(this);
         notes = db.getNotes();
 
-        // BAD away of doing it
-        for(int i = 0; i<notes.size(); i++){
-            notes.get(i).setId(i);
-        }
-
-
         recyclerView = findViewById(R.id.listNotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
@@ -50,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
-
-
     }
 
 

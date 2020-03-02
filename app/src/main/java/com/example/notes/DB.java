@@ -16,7 +16,7 @@ public class DB extends SQLiteOpenHelper {
     private static final String dbTable = "notes";
 
     // Columns
-    private static final String id = "id";
+    private static final String id = "_id";
     private static final String title = "title";
     private static final String description = "description";
     private static final String date = "date";
@@ -31,7 +31,7 @@ public class DB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Query to create table
-        String query = "CREATE TABLE " + dbTable + "(" + id + " INT PRIMARY KEY," +
+        String query = "CREATE TABLE " + dbTable + "(" + id + " INTEGER PRIMARY KEY," +
                 title + " TEXT,"+
                 description + " TEXT," +
                 date + " TEXT," +
@@ -46,14 +46,12 @@ public class DB extends SQLiteOpenHelper {
         if(i >= il){
             return;
         }
-
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + dbName);
         onCreate(sqLiteDatabase);
     }
 
     // Add new note to DB
     public long addNote(Notes notes){
-
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues c = new ContentValues();
@@ -63,8 +61,6 @@ public class DB extends SQLiteOpenHelper {
         c.put(date,notes.getDate());
 
         long id = db.insert(dbTable,null,c);
-
-
         return id;
     }
 
@@ -82,12 +78,12 @@ public class DB extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
+        assert cursor != null;
         return new Notes(cursor.getLong(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4));
     }
 
     // Get all notes
     public List<Notes> getNotes(){
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         List<Notes> notesList = new ArrayList<>();
