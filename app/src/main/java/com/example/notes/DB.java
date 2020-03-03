@@ -112,5 +112,26 @@ public class DB extends SQLiteOpenHelper {
         return notesList;
     }
 
+    // Edit note
+    public int editNote(Notes note){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+
+        c.put(title,note.getTitle());
+        c.put(description,note.getDescription());
+        c.put(date,note.getDate());
+        c.put(time,note.getTime());
+
+        return db.update(dbTable,c,id+"=?",new String[]{String.valueOf(note.getId())});
+    }
+
+
+    // Delete note
+    void deleteNote(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(dbTable,id+"=?",new String[]{String.valueOf(id)});
+        db.close();
+    }
+
 
 }

@@ -20,6 +20,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TODO: Edit functionality
+    //TODO: Delete funcionality
+    //TODO: landscape layout at least in 1 screan
+
+
+
     Toolbar toolbar;
     RecyclerView recyclerView;
     Adapter adapter;

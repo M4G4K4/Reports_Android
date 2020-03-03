@@ -37,7 +37,7 @@ public class AddNote extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Edit note");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Add note");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // add back button to the tool bar , android manifested edited to tell the parent activity to be able to know where to go back
 
 

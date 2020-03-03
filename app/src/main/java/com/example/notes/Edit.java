@@ -31,12 +31,12 @@ public class Edit extends AppCompatActivity {
         // Toolbar
         toolbar = findViewById(R.id.toolbaredit);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("New note");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Edit note");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // add back button to the tool bar , android manifested edited to tell the parent activity to be able to know where to go back
 
 
         Intent intent = getIntent();
-        Long id = intent.getLongExtra("ID",0);
+        long id = intent.getLongExtra("ID",0);
         System.out.println("Edit ID: " + id);
 
         editTitle = findViewById(R.id.editTitle);
@@ -49,6 +49,7 @@ public class Edit extends AppCompatActivity {
         editTitle.setText(note.getTitle());
         editDescription.setText(note.getDescription());
 
+        db.close();
     }
 
     // Toolbar menu
@@ -62,9 +63,31 @@ public class Edit extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.saveEditBtn){
-            Toast.makeText(this, "Save edit clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Save Button cliked ", Toast.LENGTH_SHORT).show();
+
+            Intent intent = getIntent();
+            long id = intent.getLongExtra("ID",0);
+
+
+            DB db = new DB(this);
+            Notes note = new Notes();
+            note = db.getNote(id);
+
+            note.setTitle(editTitle.getText().toString());
+            note.setDescription(editTitle.getText().toString());
+
+            db.editNote(note);
+            db.close();
+
+            goToMain();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // To reload and update with the new note
+    private void goToMain() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
 }

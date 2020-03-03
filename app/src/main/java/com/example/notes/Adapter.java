@@ -80,8 +80,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     intent.putExtra("ID", notes.get(getAdapterPosition()).getId());
                     view.getContext().startActivity(intent);
 
-                    //Toast.makeText(view.getContext(), "Clicked -> " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    System.out.println("Notes ID clicked: " + notes.get(getAdapterPosition()).getId());
                 }
             });
 
