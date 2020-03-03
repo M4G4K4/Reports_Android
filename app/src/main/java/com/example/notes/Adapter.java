@@ -2,7 +2,9 @@ package com.example.notes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -76,6 +78,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Intent intent = new Intent(view.getContext(),Edit.class);
                     intent.putExtra("ID", notes.get(getAdapterPosition()).getId());
                     view.getContext().startActivity(intent);
@@ -85,4 +88,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 }

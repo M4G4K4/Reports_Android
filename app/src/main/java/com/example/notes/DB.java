@@ -16,7 +16,7 @@ public class DB extends SQLiteOpenHelper {
     private static final String dbTable = "notes";
 
     // Columns
-    private static final String id = "_id";
+    private static final String ID = "_id";
     private static final String title = "title";
     private static final String description = "description";
     private static final String date = "date";
@@ -31,7 +31,7 @@ public class DB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Query to create table
-        String query = "CREATE TABLE " + dbTable + "(" + id + " INTEGER PRIMARY KEY," +
+        String query = "CREATE TABLE " + dbTable + "(" + ID + " INTEGER PRIMARY KEY," +
                 title + " TEXT,"+
                 description + " TEXT," +
                 date + " TEXT," +
@@ -71,7 +71,7 @@ public class DB extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(dbTable,new String[]{id,title,description,time,date},id+"=?"
+        Cursor cursor = db.query(dbTable,new String[]{ID,title,description,time,date}, ID +"=?"
                 ,new String[]{String.valueOf(id2)},null,null,null);
 
         if(cursor != null){
@@ -122,16 +122,18 @@ public class DB extends SQLiteOpenHelper {
         c.put(date,note.getDate());
         c.put(time,note.getTime());
 
-        return db.update(dbTable,c,id+"=?",new String[]{String.valueOf(note.getId())});
+        return db.update(dbTable,c, ID +"=?",new String[]{String.valueOf(note.getId())});
     }
 
 
     // Delete note
     void deleteNote(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(dbTable,id+"=?",new String[]{String.valueOf(id)});
+        //db.delete(dbTable,id+" = ?",new String[]{String.valueOf(id)});
+        db.execSQL("DELETE FROM "+dbTable+" WHERE "+ID+"='"+id+"'");
         db.close();
     }
+
 
 
 }

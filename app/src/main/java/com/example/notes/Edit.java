@@ -62,29 +62,47 @@ public class Edit extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.saveEditBtn){
-            Toast.makeText(this, "Save Button cliked ", Toast.LENGTH_SHORT).show();
 
-            Intent intent = getIntent();
-            long id = intent.getLongExtra("ID",0);
+        switch (item.getItemId()){
+            case R.id.saveEditBtn:
+                Toast.makeText(this, "Save Button cliked ", Toast.LENGTH_SHORT).show();
+
+                Intent intent = getIntent();
+                long id = intent.getLongExtra("ID",0);
 
 
-            DB db = new DB(this);
-            Notes note = new Notes();
-            note = db.getNote(id);
+                DB db = new DB(this);
+                Notes note = new Notes();
+                note = db.getNote(id);
 
-            note.setTitle(editTitle.getText().toString());
-            note.setDescription(editTitle.getText().toString());
+                note.setTitle(editTitle.getText().toString());
+                note.setDescription(editDescription.getText().toString());
 
-            db.editNote(note);
-            db.close();
+                db.editNote(note);
+                db.close();
 
-            goToMain();
+                goToMain();
+                return true;
+
+            case R.id.deleteEditBtn:
+                Toast.makeText(this, "Delete clicked", Toast.LENGTH_SHORT).show();
+
+                Intent intentDelete = getIntent();
+                id = intentDelete.getLongExtra("ID", 0);
+                DB dbdelete = new DB(this);
+                dbdelete.deleteNote(id);
+
+                dbdelete.close();
+                goToMain();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
-    // To reload and update with the new note
+    // To reload and update the recycler view with the changes
     private void goToMain() {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
