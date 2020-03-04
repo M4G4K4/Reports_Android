@@ -7,4 +7,6 @@
     <color name="colorPrimary2">#FFDE03</color>
     <color name="colorPrimary3">#FF0266</color>
     <color name="colorBackground">#ffffff</color>
+
+    <color name="colorBtn"></color>
 </resources>
