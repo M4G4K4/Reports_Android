@@ -3,6 +3,7 @@ package com.example.notes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -23,16 +24,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: Edit functionality
-    //TODO: Delete funcionality
-    //TODO: landscape layout at least in 1 screan
-
-
-
     Toolbar toolbar;
     RecyclerView recyclerView;
     Adapter adapter;
     List<Notes> notes;
+
+    DB db2 = new DB(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         DB db = new DB(this);
         notes = db.getNotes();
 
+
+
         recyclerView = findViewById(R.id.listNotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
@@ -53,9 +53,29 @@ public class MainActivity extends AppCompatActivity {
                 2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        db.close();
+
+        // Swipe on cardView
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+
+                db2.deleteNote(notes.get(position).getId());
+                Toast.makeText(MainActivity.this,R.string.noteDeleted , Toast.LENGTH_SHORT).show();
+                db2.close();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
-
-
 
 
     // Toolbar menu
@@ -74,39 +94,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-/*
-    // Long press sub menu
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-        getMenuInflater().inflate(R.menu.sub_menu,menu);
+    private void goToMain() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
-
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-       switch (item.getItemId()){
-           case R.id.subMenu_Delete:
-               Toast.makeText(this, "Delte option", Toast.LENGTH_SHORT).show();
-               return true;
-
-           case R.id.subMenu_Edit:
-               Toast.makeText(this, "Edit option", Toast.LENGTH_SHORT).show();
-
-               return true;
-
-           default:
-
-               return  super.onContextItemSelected(item);
-       }
-
-    }
-    */
-
-
-
 
 } // end main activity

@@ -8,4 +8,5 @@
     <string name="ToastSave">Note was saved</string>
     <string name="ToastCancel">No notes saved</string>
     <string name="save">Save</string>
+    <string name="noteDeleted">Note Deleted</string>
 </resources>

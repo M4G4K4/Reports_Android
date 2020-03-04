@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Notes</string>
-    <string name="add" translatable="false">Adicionar</string>
+    <string name="add">Adicionar</string>
     <string name="description">Descrição</string>
     <string name="title">Titulo</string>
     <string name="back">Atrás</string>
@@ -9,4 +9,5 @@
     <string name="save">Guardar</string>
     <string name="ToastSave">Nota foi guardada</string>
     <string name="ToastCancel">Nehuma nota guardada</string>
+    <string name="noteDeleted">Nota eliminada</string>
 </resources>

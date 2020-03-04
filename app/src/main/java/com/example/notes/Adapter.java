@@ -29,7 +29,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,13 +43,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         String time = notes.get(position).getTime();
         String date = notes.get(position).getDate();
 
-
         holder.title.setText(title);
         holder.description.setText(description);
         holder.time.setText(time);
         holder.date.setText(date);
-
-
     }
 
     @Override
@@ -78,15 +74,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     Intent intent = new Intent(view.getContext(),Edit.class);
                     intent.putExtra("ID", notes.get(getAdapterPosition()).getId());
                     view.getContext().startActivity(intent);
 
                 }
+
             });
 
         }
+
     }
 
 
