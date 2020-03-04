@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 db2.deleteNote(notes.get(position).getId());
                 Toast.makeText(MainActivity.this,R.string.noteDeleted , Toast.LENGTH_SHORT).show();
                 db2.close();
+
             }
         };
 
