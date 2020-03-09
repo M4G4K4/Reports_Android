@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     DB db2 = new DB(this);
 
-    Button btn;
+    Button btnlogin;
+    Button btnregister;
 
 
     @Override
@@ -48,12 +49,22 @@ public class MainActivity extends AppCompatActivity {
         notes = db.getNotes();
 
 
-        btn = findViewById(R.id.mainactivityBtn);
+        btnlogin = findViewById(R.id.screenLogin);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),Login.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnregister = findViewById(R.id.screenRegister);
+        btnregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),Register.class);
                 startActivity(intent);
             }
         });
