@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Notes</string>
+    <string name="app_name">Reports</string>
     <string name="add">Adicionar</string>
     <string name="description">Descrição</string>
     <string name="title">Titulo</string>
