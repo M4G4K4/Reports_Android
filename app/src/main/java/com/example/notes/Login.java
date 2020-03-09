@@ -21,21 +21,24 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email = findViewById(R.id.loginemail);
-        password = findViewById(R.id.loginpassword);
-        registerText = findViewById(R.id.registerText);
-        loginbtn = findViewById(R.id.loginBtn);
+        //email = findViewById(R.id.loginemail);
+        //password = findViewById(R.id.loginpassword);
+        //registerText = findViewById(R.id.registerText);
+        //loginbtn = findViewById(R.id.loginBtn);
 
 
         // Register text
+        /*
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Login.this, "Register text", Toast.LENGTH_SHORT).show();
             }
         });
+*/
 
         // Login Button
+        /*
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +48,7 @@ public class Login extends AppCompatActivity {
         });
 
 
-
+*/
 
 
 

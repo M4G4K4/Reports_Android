@@ -9,4 +9,6 @@
     <color name="colorBackground">#ffffff</color>
 
     <color name="colorBtn">#0f4fff</color>
+
+    <color name="colorLogin">#ffffff</color>
 </resources>

@@ -11,6 +11,8 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class AddNote extends AppCompatActivity {
     String id;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,8 @@ public class AddNote extends AppCompatActivity {
 
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
+
+
 
 
         title.addTextChangedListener(new TextWatcher() {
