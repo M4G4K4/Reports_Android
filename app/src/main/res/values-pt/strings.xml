@@ -10,4 +10,11 @@
     <string name="ToastSave">Nota foi guardada</string>
     <string name="ToastCancel">Nehuma nota guardada</string>
     <string name="noteDeleted">Nota eliminada</string>
+    <string name="register_text">Não registado ainda ? Clicka aqui</string>
+    <string name="login">Login</string>
+    <string name="password">Palavra-passe</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
 </resources>
