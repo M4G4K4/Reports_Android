@@ -18,4 +18,7 @@
     <string name="register">Register</string>
     <string name="reports">Reports</string>
     <string name="logo">Logo</string>
+    <string name="anonymus_login">Anonymus Login</string>
+    <string name="user_registed">User registed with success</string>
+    <string name="register_error">Some error occurred</string>
 </resources>

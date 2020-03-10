@@ -49,27 +49,6 @@ public class MainActivity extends AppCompatActivity {
         notes = db.getNotes();
 
 
-        btnlogin = findViewById(R.id.screenLogin);
-
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),Login.class);
-                startActivity(intent);
-            }
-        });
-
-
-        btnregister = findViewById(R.id.screenRegister);
-        btnregister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),Register.class);
-                startActivity(intent);
-            }
-        });
-
-
         recyclerView = findViewById(R.id.listNotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
