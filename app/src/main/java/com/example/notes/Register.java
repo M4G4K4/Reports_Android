@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity {
 
             paramJson.put("email", email.getText().toString());
             paramJson.put("password", password.getText().toString());
-            paramJson.put("name",name.getText().toString());
+            paramJson.put("name", name.getText().toString());
 
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            //TODO: unique constrain error
+
 
                             if(error instanceof NetworkError) {
                                 Toast.makeText(Register.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
