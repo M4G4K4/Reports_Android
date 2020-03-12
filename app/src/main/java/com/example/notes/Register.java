@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,9 +22,18 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.scottyab.aescrypt.AESCrypt;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Register extends AppCompatActivity {
 
@@ -104,6 +116,8 @@ public class Register extends AppCompatActivity {
             paramJson.put("password", password.getText().toString());
             paramJson.put("name", name.getText().toString());
 
+        System.out.println("PASSWORD ENCRYPTED: "  + encrypt(password.getText().toString()));
+
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
@@ -120,8 +134,7 @@ public class Register extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
-
+                            Toast.makeText(Register.this, "Register Error", Toast.LENGTH_SHORT).show();
                             if(error instanceof NetworkError) {
                                 Toast.makeText(Register.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
                             }
@@ -132,10 +145,34 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "Parsing error! Please try again after some time!!", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                     });
 
             queue.add(jsonObjectRequest);
 
     }
+
+    // -----------------------------------------
+
+
+    public String encrypt(String message){
+        String password = "TheRandomKey";
+        try {
+            return AESCrypt.encrypt(password, message);
+        }catch (GeneralSecurityException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return "random";
+    }
+
+    public String decrypt(String message){
+        String password = "TheRandomKey";
+        try {
+            return AESCrypt.decrypt(password, message);
+        }catch (GeneralSecurityException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return "random";
+    }
+
+
 }
