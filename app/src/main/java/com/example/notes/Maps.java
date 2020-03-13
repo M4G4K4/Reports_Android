@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    // How to use Glide:
+    // Glide.with(context).load("YourUrl").into(imageView);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        requestReports();
     }
 
 
@@ -35,13 +40,27 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
+        LatLng lisbon = new LatLng(38.736946,-9.142685 );
+
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(lisbon).title("Lisbon marker"));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
+
+// ###########################################
+
+
+    private void requestReports() {
+
+    }
+
 }
