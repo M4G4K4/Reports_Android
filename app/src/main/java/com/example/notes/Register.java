@@ -82,20 +82,14 @@ public class Register extends AppCompatActivity {
 
     private boolean validatePassword(){
 
-        if(password.getText().toString().equals(confirmPassword.getText().toString())){
-            return true;
-        }
-
-        return false;
+        return password.getText().toString().equals(confirmPassword.getText().toString());
     }
 
     private boolean validateRegister() {
         if(!name.getText().toString().equals("")){
             if(!email.getText().toString().equals("")){
                 if(!password.getText().toString().equals("")){
-                    if(!confirmPassword.getText().toString().equals("")){
-                        return  true;
-                    }
+                    return !confirmPassword.getText().toString().equals("");
                 }
             }
         }
@@ -106,17 +100,17 @@ public class Register extends AppCompatActivity {
 
 
     public void register() throws JSONException {
-        String url ="http://172.16.176.120:3000/api/registerUser";
+        String url ="http://192.168.1.73:3000/api/registerUser";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
         JSONObject paramJson = new JSONObject();
 
             paramJson.put("email", email.getText().toString());
-            paramJson.put("password", password.getText().toString());
+            paramJson.put("password", encrypt(password.getText().toString()));
             paramJson.put("name", name.getText().toString());
 
-        System.out.println("PASSWORD ENCRYPTED: "  + encrypt(password.getText().toString()));
+
 
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -151,28 +145,18 @@ public class Register extends AppCompatActivity {
 
     }
 
-    // -----------------------------------------
 
 
     public String encrypt(String message){
-        String password = "TheRandomKey";
+        String password = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
         try {
             return AESCrypt.encrypt(password, message);
         }catch (GeneralSecurityException e){
             System.out.println("Error: " + e.getMessage());
         }
-        return "random";
+        return "encrypt error";
     }
 
-    public String decrypt(String message){
-        String password = "TheRandomKey";
-        try {
-            return AESCrypt.decrypt(password, message);
-        }catch (GeneralSecurityException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-        return "random";
-    }
 
 
 }

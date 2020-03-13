@@ -22,16 +22,19 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.scottyab.aescrypt.AESCrypt;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.GeneralSecurityException;
 
 public class Login extends AppCompatActivity {
 
     //TODO: unique constrain error
     //TODO: encrypt password
 
-
+    String key2 = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
     EditText email;
     EditText password;
     Button loginbtn;
@@ -103,7 +106,7 @@ public class Login extends AppCompatActivity {
 
     // Http request to API
     public void login() throws JSONException {
-        String url ="http://172.16.176.120:3000/api/checkUser2/" + email.getText().toString() + "/"+password.getText().toString();
+        String url ="http://192.168.1.73:3000/api/checkUser2/" + email.getText().toString() + "/"+ encrypt(password.getText().toString());
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -118,17 +121,13 @@ public class Login extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String statusCode = response.toString().substring(0, 57);
-
                         Toast.makeText(Login.this, "Login success", Toast.LENGTH_SHORT).show();
-                        finish();
                         goToMap();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         Toast.makeText(Login.this, "Login Error", Toast.LENGTH_SHORT).show();
 
                         if(error instanceof NetworkError) {
@@ -148,8 +147,22 @@ public class Login extends AppCompatActivity {
     }
 
     private void goToMap() {
+        // End current activity
+        finish();
+
         Intent intent = new Intent(this,Map.class);
         startActivity(intent);
+    }
+
+
+    public String encrypt(String message){
+
+        try {
+            return AESCrypt.encrypt(key2, message);
+        }catch (GeneralSecurityException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return "encrypt error";
     }
 
 
