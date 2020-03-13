@@ -17,6 +17,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     // How to use Glide:
     // Glide.with(context).load("YourUrl").into(imageView);
 
+    long userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
