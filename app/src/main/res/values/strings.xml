@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notes</string>
+    <string name="app_name">Reports</string>
     <string name="add">Add</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
@@ -9,4 +9,16 @@
     <string name="ToastCancel">No notes saved</string>
     <string name="save">Save</string>
     <string name="noteDeleted">Note Deleted</string>
+    <string name="register_text">Not registed yet ? click here</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="reports">Reports</string>
+    <string name="logo">Logo</string>
+    <string name="anonymus_login">Anonymus Login</string>
+    <string name="user_registed">User registed with success</string>
+    <string name="register_error">Some error occurred</string>
 </resources>

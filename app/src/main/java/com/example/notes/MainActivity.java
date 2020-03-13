@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,12 +25,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     Toolbar toolbar;
     RecyclerView recyclerView;
     Adapter adapter;
     List<Notes> notes;
 
     DB db2 = new DB(this);
+
+    Button btnlogin;
+    Button btnregister;
 
 
     @Override
@@ -42,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         DB db = new DB(this);
         notes = db.getNotes();
-
 
 
         recyclerView = findViewById(R.id.listNotes);
@@ -95,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToMain() {
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
+
 
 } // end main activity
