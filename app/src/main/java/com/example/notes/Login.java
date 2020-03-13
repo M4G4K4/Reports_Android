@@ -150,7 +150,7 @@ public class Login extends AppCompatActivity {
         // End current activity
         finish();
 
-        Intent intent = new Intent(this,Map.class);
+        Intent intent = new Intent(this,Maps.class);
         startActivity(intent);
     }
 
