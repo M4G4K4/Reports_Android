@@ -50,7 +50,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Maps.this, "Fab cliked", Toast.LENGTH_SHORT).show();
-               addReport();
+                addReport();
             }
         });
 
@@ -60,8 +60,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void addReport() {
-
-
+        startActivity(new Intent(Maps.this,popup.class));
     }
 
 
