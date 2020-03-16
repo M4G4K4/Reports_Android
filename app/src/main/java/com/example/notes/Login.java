@@ -32,7 +32,6 @@ import java.security.GeneralSecurityException;
 public class Login extends AppCompatActivity {
 
     //TODO: unique constrain error
-    //TODO: encrypt password
 
     String key2 = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
     EditText email;
@@ -78,6 +77,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+
         // Btn Notas
         anonymousLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +121,14 @@ public class Login extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(Login.this, "Login success", Toast.LENGTH_SHORT).show();
-                        goToMap();
+                        try {
+                            Toast.makeText(Login.this, "Login success", Toast.LENGTH_SHORT).show();
+                            int userID;
+                            userID = response.getInt("ID");
+                            goToMap(userID);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -146,11 +152,12 @@ public class Login extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void goToMap() {
+    private void goToMap(int userID) {
         // End current activity
         finish();
 
         Intent intent = new Intent(this,Maps.class);
+        intent.putExtra("ID", userID);
         startActivity(intent);
     }
 

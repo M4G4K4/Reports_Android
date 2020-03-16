@@ -2,6 +2,7 @@ package com.example.notes;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,7 +18,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     // How to use Glide:
     // Glide.with(context).load("YourUrl").into(imageView);
 
-    long userID;
+    Integer userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,11 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        Intent intent = getIntent();
+        userID = intent.getIntExtra("ID",0);
+        System.out.println("Map User ID: " + userID);
 
 
         requestReports();
@@ -54,7 +60,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.addMarker(new MarkerOptions().position(lisbon).title("Lisbon marker"));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(lisbon));
 
     }
 
