@@ -31,8 +31,6 @@ import java.security.GeneralSecurityException;
 
 public class Login extends AppCompatActivity {
 
-    //TODO: unique constrain error
-
     String key2 = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
     EditText email;
     EditText password;

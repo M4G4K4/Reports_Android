@@ -2,8 +2,12 @@ package com.example.notes;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,6 +15,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 
 public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
@@ -24,18 +33,35 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
+        // Get user ID
         Intent intent = getIntent();
         userID = intent.getIntExtra("ID",0);
-        System.out.println("Map User ID: " + userID);
 
 
+
+        FloatingActionButton fab = findViewById(R.id.fabmap);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Maps.this, "Fab cliked", Toast.LENGTH_SHORT).show();
+               addReport();
+            }
+        });
+
+
+        // Get all reports from database
         requestReports();
+    }
+
+    private void addReport() {
+
+
     }
 
 
@@ -63,8 +89,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lisbon));
 
     }
-
-// ###########################################
 
 
     private void requestReports() {
