@@ -7,36 +7,33 @@
     tools:context=".popup">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="82dp"
-        android:layout_height="76dp"
+        android:id="@+id/popupImagecamera"
+        android:layout_width="246dp"
+        android:layout_height="241dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387"
-        app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+        app:layout_constraintVertical_bias="0.093" />
 
     <Button
         android:id="@+id/popupBtnTakePicture"
-        android:layout_width="230dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="247dp"
+        android:layout_height="50dp"
         android:text="@string/take_a_picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386" />
+        app:layout_constraintVertical_bias="0.465" />
 
     <EditText
         android:id="@+id/popupReportDescription"
-        android:layout_width="330dp"
+        android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
         android:autofillHints=""
         android:background="#11000000"
         android:ems="10"
@@ -46,36 +43,34 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popupBtnTakePicture"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.114" />
 
     <Button
         android:id="@+id/popupBtnCancel"
-        android:layout_width="142dp"
+        android:layout_width="110dp"
         android:layout_height="47dp"
-        android:layout_marginTop="19dp"
         android:text="@string/buttonCancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintHorizontal_bias="0.249"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popupReportDescription"
-        app:layout_constraintVertical_bias="0.003" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <Button
         android:id="@+id/popupBtnSave"
-        android:layout_width="142dp"
+        android:layout_width="110dp"
         android:layout_height="47dp"
-        android:layout_marginStart="16dp"
         android:text="@string/buttonSave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toEndOf="@+id/popupBtnCancel"
         app:layout_constraintTop_toBottomOf="@+id/popupReportDescription"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.091" />
 
     <Button
         android:id="@+id/popBtnClose"

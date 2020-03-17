@@ -104,7 +104,7 @@ public class Login extends AppCompatActivity {
 
     // Http request to API
     public void login() throws JSONException {
-        String url ="http://192.168.1.73:3000/api/checkUser2/" + email.getText().toString() + "/"+ encrypt(password.getText().toString());
+        String url ="http://64.227.36.62/api/checkUser2/" + email.getText().toString() + "/"+ encrypt(password.getText().toString());
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -133,7 +133,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(Login.this, "Login Error", Toast.LENGTH_SHORT).show();
-
+                        System.out.println("Error: " + error.getMessage());
                         if(error instanceof NetworkError) {
                             Toast.makeText(Login.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
                         }
