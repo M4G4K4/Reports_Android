@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class popup extends AppCompatActivity {
 
@@ -22,6 +26,10 @@ public class popup extends AppCompatActivity {
     Button close,takepicture,cancel,save;
     EditText description;
     ImageView image;
+
+
+    Boolean SaveBtn = false;
+    Boolean imageUploaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +43,7 @@ public class popup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8),(int)(height*.6));
+        getWindow().setLayout((int)(width*1),(int)(height*1));
 
         // Buttons
         close = findViewById(R.id.popBtnClose);
@@ -47,6 +55,7 @@ public class popup extends AppCompatActivity {
         // Edittext
         description = findViewById(R.id.popupReportDescription);
 
+        save.setEnabled(false);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,21 +68,53 @@ public class popup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(intent);
+                startActivityForResult(intent,100);
+
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(popup.this, "Save Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(popup.this, "Image cliked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        description.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(canSave()){
+                    save.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(canSave()){
+                    save.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(canSave()){
+                    save.setEnabled(true);
+                }
             }
         });
 
@@ -83,8 +124,17 @@ public class popup extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Bitmap bitmap   = (Bitmap) data.getExtras().get("data");
-        image.setImageBitmap(bitmap);
+        if (requestCode == 100) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            image.setImageBitmap(bitmap);
+            // upload image to imgur
+            // set image uploaded when response come
+        }
     }
+
+
+    private boolean canSave(){
+        return image.getDrawable() != null && description.getText().toString().equals("");
+    }
+
 }
