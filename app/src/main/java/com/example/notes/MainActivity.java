@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    //Fix 1st part : finish new activities
 
     Toolbar toolbar;
     RecyclerView recyclerView;
