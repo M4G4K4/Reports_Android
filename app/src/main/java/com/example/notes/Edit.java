@@ -104,6 +104,7 @@ public class Edit extends AppCompatActivity {
 
     // To reload and update the recycler view with the changes
     private void goToMain() {
+        finish();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }

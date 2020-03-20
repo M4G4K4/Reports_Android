@@ -134,6 +134,7 @@ public class AddNote extends AppCompatActivity {
 
     // To reload and update with the new note
     private void goToMain() {
+        finish();
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
