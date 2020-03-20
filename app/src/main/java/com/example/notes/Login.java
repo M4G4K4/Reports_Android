@@ -151,7 +151,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void goToMap(int userID) {
-        // End current activity
         finish();
 
         Intent intent = new Intent(this,Maps.class);

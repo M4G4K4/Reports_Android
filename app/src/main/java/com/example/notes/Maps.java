@@ -60,7 +60,12 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void addReport() {
-        startActivity(new Intent(Maps.this,popup.class));
+        Intent intent = new Intent(getBaseContext(), popup.class);
+        System.out.println("Maps userID : " + userID);
+        intent.putExtra("UserID", userID);
+        startActivity(intent);
+
+        //startActivity(new Intent(Maps.this,popup.class));
     }
 
 
