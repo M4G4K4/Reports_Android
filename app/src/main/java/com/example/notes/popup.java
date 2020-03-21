@@ -68,6 +68,11 @@ public class popup extends AppCompatActivity {
     // Base 64 of the image to be uploaded to imgur
     String base64;
 
+    // Location
+    Double longitude;
+    Double latitude;
+    String morada;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +134,11 @@ public class popup extends AppCompatActivity {
                 Toast.makeText(popup.this, "Save Clicked", Toast.LENGTH_SHORT).show();
 
                 // upload data to api
-                uploadAPI();
+                try {
+                    uploadAPI();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -170,28 +179,9 @@ public class popup extends AppCompatActivity {
 
         if (gpsTracker.getIsGPSTrackingEnabled())
         {
-            String stringLatitude = String.valueOf(gpsTracker.latitude);
-            System.out.println("Latitude: " + stringLatitude);
-
-            String stringLongitude = String.valueOf(gpsTracker.longitude);
-            System.out.println("Longitude: " + stringLongitude);
-
-
-            String country = gpsTracker.getCountryName(this);
-            System.out.println("Country: " + country);
-
-
-            String city = gpsTracker.getLocality(this);
-            System.out.println("City: " + city);
-
-
-            String postalCode = gpsTracker.getPostalCode(this);
-            System.out.println("PostalCode: " + postalCode);
-
-
-            String addressLine = gpsTracker.getAddressLine(this);
-            System.out.println("Address: " + addressLine);
-
+            latitude = gpsTracker.latitude;
+            longitude = gpsTracker.longitude;
+            morada = gpsTracker.getAddressLine(this);
 
         }
         else
@@ -202,22 +192,61 @@ public class popup extends AppCompatActivity {
 
     }
 
-    private void uploadAPI() {
-        // Obter cordenadas
-        // obter morada segundo cordenadas
-        // post  to API
+    private void uploadAPI() throws JSONException {
 
-        /* what needs to be sent
-	description
-	longitude
-	latitude
-	img
-	morada
-	userID
-         */
+        String url ="http://64.227.36.62/api/newReport";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JSONObject paramJson = new JSONObject();
+        paramJson.put("description", description.getText().toString());
+        paramJson.put("longitude", latitude);
+        paramJson.put("latitude", longitude);
+        paramJson.put("img", imgURL);
+        paramJson.put("morada", morada);
+        paramJson.put("userID", userID);
 
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                paramJson,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(popup.this, "Report added", Toast.LENGTH_SHORT).show();
 
+                        goBack();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(popup.this, "Login Error", Toast.LENGTH_SHORT).show();
+                        System.out.println("Error: " + error.getMessage());
+                        if(error instanceof NetworkError) {
+                            Toast.makeText(popup.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(error instanceof ServerError) {
+                            Toast.makeText(popup.this, "The server could not be found. Please try again after some time!!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (error instanceof ParseError) {
+                            Toast.makeText(popup.this, "Parsing error! Please try again after some time!!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                });
+
+        queue.add(jsonObjectRequest);
+    }
+
+    // Go back to Map activity
+    private void goBack() {
+        finish();
+
+        Intent intent = new Intent(this,Maps.class);
+        startActivity(intent);
     }
 
     // After camera activity being closed
