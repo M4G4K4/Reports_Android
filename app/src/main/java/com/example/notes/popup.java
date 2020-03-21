@@ -2,9 +2,16 @@ package com.example.notes;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -39,9 +46,10 @@ import java.util.Map;
 
 public class popup extends AppCompatActivity {
 
-    Button close,takepicture,cancel,save;
+    Button close, takepicture, cancel, save;
     EditText description;
     ImageView image;
+
 
     // Imgur API
     String ClientID = "917669a10ae9a08";
@@ -72,12 +80,12 @@ public class popup extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*1),(int)(height*1));
+        getWindow().setLayout((int) (width), (int) (height));
 
 
         // Get userID tha is logged in
         Intent intent = getIntent();
-        userID = intent.getIntExtra("UserID",0);
+        userID = intent.getIntExtra("UserID", 0);
 
 
         // Buttons
@@ -103,7 +111,7 @@ public class popup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
 
             }
         });
@@ -119,8 +127,8 @@ public class popup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(popup.this, "Save Clicked", Toast.LENGTH_SHORT).show();
-                // upload data to api
 
+                // upload data to api
                 uploadAPI();
 
             }
@@ -137,43 +145,82 @@ public class popup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(canSave()){
+                if (canSave()) {
                     save.setEnabled(true);
                 }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(canSave()){
+                if (canSave()) {
                     save.setEnabled(true);
                 }
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(canSave()){
+                if (canSave()) {
                     save.setEnabled(true);
                 }
             }
         });
 
+        // check if GPS enabled
+        GPS gpsTracker = new GPS(this);
+
+        if (gpsTracker.getIsGPSTrackingEnabled())
+        {
+            String stringLatitude = String.valueOf(gpsTracker.latitude);
+            System.out.println("Latitude: " + stringLatitude);
+
+            String stringLongitude = String.valueOf(gpsTracker.longitude);
+            System.out.println("Longitude: " + stringLongitude);
+
+
+            String country = gpsTracker.getCountryName(this);
+            System.out.println("Country: " + country);
+
+
+            String city = gpsTracker.getLocality(this);
+            System.out.println("City: " + city);
+
+
+            String postalCode = gpsTracker.getPostalCode(this);
+            System.out.println("PostalCode: " + postalCode);
+
+
+            String addressLine = gpsTracker.getAddressLine(this);
+            System.out.println("Address: " + addressLine);
+
+
+        }
+        else
+        {
+            System.out.println("erro location");
+        }
+
+
     }
 
     private void uploadAPI() {
-        /*
-        description:request.body.description,
-        long:request.body.long,
-        lat:request.body.lat,
-        img:request.body.img,
-        morada:request.body.morada,
-        userID:request.body.userID
+        // Obter cordenadas
+        // obter morada segundo cordenadas
+        // post  to API
+
+        /* what needs to be sent
+	description
+	longitude
+	latitude
+	img
+	morada
+	userID
          */
 
 
 
     }
 
-
+    // After camera activity being closed
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -245,5 +292,7 @@ public class popup extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
+
+
 
 }
