@@ -108,7 +108,7 @@ public class popup extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                goBack();
             }
         });
 
@@ -174,18 +174,15 @@ public class popup extends AppCompatActivity {
             }
         });
 
-        // check if GPS enabled
+        // Get GPS position
         GPS gpsTracker = new GPS(this);
 
-        if (gpsTracker.getIsGPSTrackingEnabled())
-        {
+        if (gpsTracker.getIsGPSTrackingEnabled()) {
             latitude = gpsTracker.latitude;
             longitude = gpsTracker.longitude;
             morada = gpsTracker.getAddressLine(this);
-
         }
-        else
-        {
+        else {
             System.out.println("erro location");
         }
 
@@ -193,7 +190,6 @@ public class popup extends AppCompatActivity {
     }
 
     private void uploadAPI() throws JSONException {
-
         String url ="http://64.227.36.62/api/newReport";
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -246,6 +242,7 @@ public class popup extends AppCompatActivity {
         finish();
 
         Intent intent = new Intent(this,Maps.class);
+        intent.putExtra("ID", userID);
         startActivity(intent);
     }
 
