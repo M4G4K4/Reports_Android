@@ -15,8 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -56,6 +60,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         // Funciona
         image2 = (ImageView) mWindow.findViewById(R.id.markerImage);
         Glide.with(mContext).load(arrStr[1]).into(image2);
+
 
     }
 

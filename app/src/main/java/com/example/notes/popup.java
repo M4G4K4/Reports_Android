@@ -219,7 +219,8 @@ public class popup extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(popup.this, "Login Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(popup.this, "Save Error", Toast.LENGTH_SHORT).show();
+                        System.out.println("Error: " + error);
                         System.out.println("Error: " + error.getMessage());
                         if(error instanceof NetworkError) {
                             Toast.makeText(popup.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();

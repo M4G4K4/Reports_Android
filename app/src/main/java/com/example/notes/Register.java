@@ -111,8 +111,6 @@ public class Register extends AppCompatActivity {
             paramJson.put("name", name.getText().toString());
 
 
-
-
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
                     url,
@@ -145,8 +143,6 @@ public class Register extends AppCompatActivity {
 
     }
 
-
-
     public String encrypt(String message){
         String password = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
         try {
@@ -156,7 +152,6 @@ public class Register extends AppCompatActivity {
         }
         return "encrypt error";
     }
-
 
 
 }

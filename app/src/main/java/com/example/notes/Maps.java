@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -79,6 +80,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
+
+
     }
 
 
@@ -91,14 +94,35 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         //startActivity(new Intent(Maps.this,popup.class));
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(Maps.this));
+
+
+        googleMap.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+            @Override
+            public void onInfoWindowLongClick(Marker marker) {
+                String markerTitle = marker.getTitle();
+                String [] arrStr = markerTitle.split("#",2);
+                editDeleteMarker(arrStr[1],arrStr[0]);
+            }
+        });
+
+
+
+    }
+
+    private void editDeleteMarker(String imgURLID,String description) {
+        Intent intent = new Intent(getBaseContext(), popUpEditDelete.class);
+        intent.putExtra("imgURLID", imgURLID);
+        intent.putExtra("description",description);
+        intent.putExtra("userID",userID);
+        startActivity(intent);
     }
 
 
+    // Get all reports , All the markers from the DB
     private void requestReports() throws JSONException {
         String url ="http://64.227.36.62/api/getAllReports";
 
@@ -167,8 +191,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         );
         queue.add(jsonArrayRequest);
     }
-
-
 
 }
 
