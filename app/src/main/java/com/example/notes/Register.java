@@ -100,7 +100,7 @@ public class Register extends AppCompatActivity {
 
 
     public void register() throws JSONException {
-        String url ="http://192.168.1.73:3000/api/registerUser";
+        String url ="http://64.227.36.62/api/registerUser";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -109,8 +109,6 @@ public class Register extends AppCompatActivity {
             paramJson.put("email", email.getText().toString());
             paramJson.put("password", encrypt(password.getText().toString()));
             paramJson.put("name", name.getText().toString());
-
-
 
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -145,8 +143,6 @@ public class Register extends AppCompatActivity {
 
     }
 
-
-
     public String encrypt(String message){
         String password = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
         try {
@@ -156,7 +152,6 @@ public class Register extends AppCompatActivity {
         }
         return "encrypt error";
     }
-
 
 
 }

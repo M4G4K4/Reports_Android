@@ -31,9 +31,6 @@ import java.security.GeneralSecurityException;
 
 public class Login extends AppCompatActivity {
 
-    //TODO: unique constrain error
-    //TODO: encrypt password
-
     String key2 = "L^A4n<QwN#j>^_D5.+:TH'tp~R5n6XEy";
     EditText email;
     EditText password;
@@ -78,6 +75,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
+
         // Btn Notas
         anonymousLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +104,7 @@ public class Login extends AppCompatActivity {
 
     // Http request to API
     public void login() throws JSONException {
-        String url ="http://192.168.1.73:3000/api/checkUser2/" + email.getText().toString() + "/"+ encrypt(password.getText().toString());
+        String url ="http://64.227.36.62/api/checkUser2/" + email.getText().toString() + "/"+ encrypt(password.getText().toString());
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -121,15 +119,21 @@ public class Login extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(Login.this, "Login success", Toast.LENGTH_SHORT).show();
-                        goToMap();
+                        try {
+                            Toast.makeText(Login.this, "Login success", Toast.LENGTH_SHORT).show();
+                            int userID;
+                            userID = response.getInt("ID");
+                            goToMap(userID);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(Login.this, "Login Error", Toast.LENGTH_SHORT).show();
-
+                        System.out.println("Error: " + error.getMessage());
                         if(error instanceof NetworkError) {
                             Toast.makeText(Login.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
                         }
@@ -146,11 +150,11 @@ public class Login extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void goToMap() {
-        // End current activity
+    private void goToMap(int userID) {
         finish();
 
-        Intent intent = new Intent(this,Map.class);
+        Intent intent = new Intent(this,Maps.class);
+        intent.putExtra("ID", userID);
         startActivity(intent);
     }
 

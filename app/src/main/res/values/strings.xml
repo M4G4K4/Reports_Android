@@ -21,4 +21,13 @@
     <string name="anonymus_login">Anonymus Login</string>
     <string name="user_registed">User registed with success</string>
     <string name="register_error">Some error occurred</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="popupDescription">Description</string>
+    <string name="buttonSave">Save</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="report_image">Report image</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="or">Or</string>
 </resources>
