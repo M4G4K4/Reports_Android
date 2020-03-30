@@ -132,14 +132,12 @@ public class popup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(popup.this, "Save Clicked", Toast.LENGTH_SHORT).show();
-
                 // upload data to api
                 try {
                     uploadAPI();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -176,14 +174,13 @@ public class popup extends AppCompatActivity {
 
         // Get GPS position
         GPS gpsTracker = new GPS(this);
-
         if (gpsTracker.getIsGPSTrackingEnabled()) {
             latitude = gpsTracker.latitude;
             longitude = gpsTracker.longitude;
             morada = gpsTracker.getAddressLine(this);
         }
         else {
-            System.out.println("erro location");
+            System.out.println("Erro obter location");
         }
 
 
@@ -211,17 +208,14 @@ public class popup extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(popup.this, "Report added", Toast.LENGTH_SHORT).show();
-
                         goBack();
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(popup.this, "Save Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(popup.this, "Upload Error", Toast.LENGTH_SHORT).show();
                         System.out.println("Error: " + error);
-                        System.out.println("Error: " + error.getMessage());
                         if(error instanceof NetworkError) {
                             Toast.makeText(popup.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
                         }

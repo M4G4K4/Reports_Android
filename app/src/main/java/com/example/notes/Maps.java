@@ -105,7 +105,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             public void onInfoWindowLongClick(Marker marker) {
                 String markerTitle = marker.getTitle();
                 String [] arrStr = markerTitle.split("#",2);
-                editDeleteMarker(arrStr[1],arrStr[0]);
+                if(marker.getAlpha() == 0.99F){
+                    editDeleteMarker(arrStr[1],arrStr[0]);
+                }
             }
         });
 
@@ -144,7 +146,6 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
                                 map.put("description", data.getString("description"));
                                 map.put("longitude",data.getString("longitude"));
-
                                 map.put("latitude",data.getString("latitude"));
                                 map.put("img",data.getString("img"));
                                 map.put("morada",data.getString("morada"));
@@ -159,6 +160,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
                                     point = new LatLng( data.getDouble("longitude"), data.getDouble("latitude") );
                                     mMap.addMarker(new MarkerOptions()
                                             .position(point)
+                                            .alpha(0.99F)
                                             .title(data.getString("description") + "#" + data.getString("img"))
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                             .snippet(data.getString("morada"))
@@ -168,6 +170,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
                                     point = new LatLng( data.getDouble("longitude"), data.getDouble("latitude") );
                                     mMap.addMarker(new MarkerOptions()
                                             .position(point)
+                                            .alpha(1)
                                             .title(data.getString("description") + "#" + data.getString("img"))
                                             .snippet(data.getString("morada"))
                                     );
