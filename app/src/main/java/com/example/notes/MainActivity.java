@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     DB db2 = new DB(this);
 
-    Button btnlogin;
-    Button btnregister;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

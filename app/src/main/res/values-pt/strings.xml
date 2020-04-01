@@ -27,5 +27,9 @@
     <string name="buttonCancel">Cancelar</string>
     <string name="take_a_picture">Tira uma foto</string>
     <string name="logo">Logo</string>
+    <string name="report_image">Imagem do acontecimento</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="or">Ou</string>
 
 </resources>
