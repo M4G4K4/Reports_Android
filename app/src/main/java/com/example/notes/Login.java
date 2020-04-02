@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
         }
 
         // Notificação local
-        NotificationHelper.displayNotification(this,"title","Body");
+        //NotificationHelper.displayNotification(this,"title","Body");
 
         FirebaseMessaging.getInstance().subscribeToTopic("updates");
         FirebaseInstanceId.getInstance().getInstanceId()
