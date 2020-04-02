@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -49,6 +50,9 @@ public class popup extends AppCompatActivity {
     Button close, takepicture, cancel, save;
     EditText description;
     ImageView image;
+
+
+    Integer MY_SOCKET_TIMEOUT_MS = 100000;
 
 
     // Imgur API
@@ -228,6 +232,11 @@ public class popup extends AppCompatActivity {
                     }
 
                 });
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(jsonObjectRequest);
     }

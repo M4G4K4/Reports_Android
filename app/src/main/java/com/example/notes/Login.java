@@ -1,9 +1,13 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +26,12 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.scottyab.aescrypt.AESCrypt;
 
 import org.json.JSONException;
@@ -38,11 +48,42 @@ public class Login extends AppCompatActivity {
     TextView registerText;
     TextView anonymousLogin;
 
+    String CHANNEL_ID = "reportsID";
+    String CHANNEL_NAME = "Reports";
+    String CHANNEL_DESC = "Reports Notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,NotificationManager.IMPORTANCE_DEFAULT );
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        // Notificação local
+        NotificationHelper.displayNotification(this,"title","Body");
+
+        FirebaseMessaging.getInstance().subscribeToTopic("updates");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        System.out.println("Token: " + task.getResult().getToken());
+                        if(task.isSuccessful()){
+                            System.out.println("Token: " + task.getResult().getToken());
+                        }else{
+                            System.out.println("Erro token: " + task.getException());
+                        }
+                    }
+                });
+
+
 
         email = findViewById(R.id.loginemail);
         password = findViewById(R.id.loginpassword);
