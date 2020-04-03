@@ -15,7 +15,7 @@ public class NotificationHelper {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat
                 .Builder(context,CHANNEL_ID )
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setSmallIcon(R.drawable.point)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

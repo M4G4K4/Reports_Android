@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -52,6 +53,9 @@ public class Login extends AppCompatActivity {
     String CHANNEL_NAME = "Reports";
     String CHANNEL_DESC = "Reports Notification";
 
+
+    Integer MY_SOCKET_TIMEOUT_MS = 100000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +73,17 @@ public class Login extends AppCompatActivity {
         // Notificação local
         //NotificationHelper.displayNotification(this,"title","Body");
 
-        FirebaseMessaging.getInstance().subscribeToTopic("updates");
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        System.out.println("Token: " + task.getResult().getToken());
                         if(task.isSuccessful()){
                             System.out.println("Token: " + task.getResult().getToken());
+                            try {
+                                sendToken(task.getResult().getToken());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }else{
                             System.out.println("Erro token: " + task.getException());
                         }
@@ -126,6 +133,42 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void sendToken(String token) throws JSONException {
+        String url ="http://64.227.36.62/api/newToken";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JSONObject paramJson = new JSONObject();
+        paramJson.put("token", token);
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                paramJson,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Reponse Token: " + response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("Error token: " + error);
+                        System.out.println("Error token: " + error.getMessage());
+
+                    }
+                });
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        queue.add(jsonObjectRequest);
     }
 
     private boolean validateFields() {

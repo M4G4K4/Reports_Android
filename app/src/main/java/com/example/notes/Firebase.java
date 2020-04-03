@@ -9,9 +9,6 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class Firebase extends FirebaseMessagingService {
 
-
-
-
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
