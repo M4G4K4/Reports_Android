@@ -11,4 +11,11 @@
     <color name="colorBtn">#0f4fff</color>
 
     <color name="colorLogin">#ffffff</color>
+
+    <color name="backgroundDark">#2d2d2d</color>
+
+
+    <color name="primary">#121212</color>
+    <color name="primaryDark">#000000</color>
+    <color name="primaryDarkAccent">#2d2d2d</color>
 </resources>

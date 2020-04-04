@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Base64;
@@ -35,6 +39,8 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import static android.hardware.Sensor.TYPE_LIGHT;
+
 public class Register extends AppCompatActivity {
 
 
@@ -44,10 +50,50 @@ public class Register extends AppCompatActivity {
     TextView password;
     TextView confirmPassword;
 
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    private SensorEventListener lightEventListener;
+    private View root;
+    private float maxValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.LightTheme);
         setContentView(R.layout.activity_register);
+
+        root = findViewById(R.id.registerRoot);
+
+/*
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(TYPE_LIGHT);
+
+        if(lightSensor == null){
+            Toast.makeText(this, "No light sensor", Toast.LENGTH_SHORT).show();
+        }
+
+        maxValue = lightSensor.getMaximumRange();
+
+        lightEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float value = event.values[0];
+                if(event.values[0] <= maxValue/2){
+                    System.out.println("Dark " +value );
+
+                    root.setBackgroundColor(R.color.primaryDark);
+                }else{
+                    System.out.println("Light " + value);
+                    root.setBackgroundColor(R.color.colorBackground);
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+*/
 
         registerBtn = findViewById(R.id.registerBtn);
         name = findViewById(R.id.registername);
@@ -78,6 +124,8 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private boolean validatePassword(){
@@ -153,5 +201,19 @@ public class Register extends AppCompatActivity {
         return "encrypt error";
     }
 
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(lightEventListener,lightSensor,SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(lightEventListener);
+    }
+
+    */
 
 }
