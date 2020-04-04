@@ -28,12 +28,14 @@
         <item name="textColor">#000000</item>
         <item name="metaTextColor">#606060</item>
         <item name="bgColor">#ffffff</item>
+        <item name="editTextColor">#11000000</item>
     </style>
 
     <style name="DarkTheme" parent="AppTheme">
         <item name="textColor">#ffffff</item>
         <item name="metaTextColor">#aeaeae</item>
         <item name="bgColor">#2d2d2d</item>
+        <item name="editTextColor">#aeaeae</item>
     </style>
 
 </resources>

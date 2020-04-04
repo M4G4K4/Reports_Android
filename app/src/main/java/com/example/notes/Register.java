@@ -53,18 +53,15 @@ public class Register extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private SensorEventListener lightEventListener;
-    private View root;
+
     private float maxValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.LightTheme);
+        setTheme(R.style.DarkTheme);
         setContentView(R.layout.activity_register);
 
-        root = findViewById(R.id.registerRoot);
-
-/*
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(TYPE_LIGHT);
 
@@ -74,26 +71,30 @@ public class Register extends AppCompatActivity {
 
         maxValue = lightSensor.getMaximumRange();
 
+
         lightEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float value = event.values[0];
-                if(event.values[0] <= maxValue/2){
-                    System.out.println("Dark " +value );
 
-                    root.setBackgroundColor(R.color.primaryDark);
+                if(event.values[0] <= maxValue/2){
+                    setTheme(R.style.DarkTheme);
+                    setContentView(R.layout.activity_register);
                 }else{
-                    System.out.println("Light " + value);
-                    root.setBackgroundColor(R.color.colorBackground);
+                    setTheme(R.style.LightTheme);
+                    setContentView(R.layout.activity_register);
                 }
             }
-
             @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
             }
+
         };
-*/
+
+
+
+
 
         registerBtn = findViewById(R.id.registerBtn);
         name = findViewById(R.id.registername);
@@ -201,7 +202,7 @@ public class Register extends AppCompatActivity {
         return "encrypt error";
     }
 
-/*
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -214,6 +215,6 @@ public class Register extends AppCompatActivity {
         sensorManager.unregisterListener(lightEventListener);
     }
 
-    */
+
 
 }
