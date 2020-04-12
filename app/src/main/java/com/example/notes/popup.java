@@ -97,6 +97,7 @@ public class popup extends AppCompatActivity {
         userID = intent.getIntExtra("UserID", 0);
 
 
+
         // Buttons
         close = findViewById(R.id.popBtnClose);
         takepicture = findViewById(R.id.popupBtnTakePicture);
@@ -108,6 +109,7 @@ public class popup extends AppCompatActivity {
         description = findViewById(R.id.popupReportDescription);
 
         save.setEnabled(false);
+
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +134,9 @@ public class popup extends AppCompatActivity {
             }
         });
 
+
+
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,25 +158,22 @@ public class popup extends AppCompatActivity {
         });
 
         description.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
                 if (canSave()) {
-                    save.setEnabled(true);
+                        save.setEnabled(true);
                 }
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (canSave()) {
-                    save.setEnabled(true);
+                        save.setEnabled(true);
                 }
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (canSave()) {
-                    save.setEnabled(true);
+                        save.setEnabled(true);
                 }
             }
         });
@@ -204,7 +206,7 @@ public class popup extends AppCompatActivity {
         paramJson.put("userID", userID);
 
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(
                 Request.Method.POST,
                 url,
                 paramJson,
@@ -218,8 +220,8 @@ public class popup extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(popup.this, "Upload Error", Toast.LENGTH_SHORT).show();
-                        System.out.println("Error: " + error);
+                        Toast.makeText(popup.this, "Report Error", Toast.LENGTH_SHORT).show();
+                        System.out.println("Report add Error: " + error);
                         if(error instanceof NetworkError) {
                             Toast.makeText(popup.this, "Cannot connect to Internet...Please check your connection!", Toast.LENGTH_SHORT).show();
                         }
@@ -283,20 +285,21 @@ public class popup extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("upload response sucess");
+                        System.out.println("Imgur upload sucess");
                         try {
                             JSONObject data = response.getJSONObject("data");
                             imgURL = data.getString("link");
+                            imageUploaded = true;
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        System.out.println("Imgur image upload error");
                         Toast.makeText(popup.this, "Imgur image upload error", Toast.LENGTH_SHORT).show();
                     }
                 }

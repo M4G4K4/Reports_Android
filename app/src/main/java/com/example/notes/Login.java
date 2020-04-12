@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
@@ -70,26 +70,32 @@ public class Login extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
-        // Notificação local
-        //NotificationHelper.displayNotification(this,"title","Body");
+        SharedPreferences settings = getSharedPreferences("firstStart", 0);
+        boolean firstStart = settings.getBoolean("firstStart", true);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if(task.isSuccessful()){
-                            System.out.println("Token: " + task.getResult().getToken());
-                            try {
-                                sendToken(task.getResult().getToken());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+        if(firstStart) {
+
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            if(task.isSuccessful()){
+                                System.out.println("Token: " + task.getResult().getToken());
+                                try {
+                                    sendToken(task.getResult().getToken());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                System.out.println("Erro token: " + task.getException());
                             }
-                        }else{
-                            System.out.println("Erro token: " + task.getException());
                         }
-                    }
-                });
+                    });
 
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("firstStart", false);
+            editor.commit();
+        }
 
 
         email = findViewById(R.id.loginemail);
