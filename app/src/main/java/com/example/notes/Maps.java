@@ -1,8 +1,10 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +25,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
@@ -89,7 +95,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
+
     }
+
 
 
     // Fab icon cliked , open popup
@@ -205,8 +213,30 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
 
     private void subscribeTopic(){
-        FirebaseMessaging.getInstance().subscribeToTopic("notification");
+        SharedPreferences settings = getSharedPreferences("subscribed", 0);
+        boolean subscribed = settings.getBoolean("subscribed", false);
+
+        // Is Subscribed
+        if(subscribed){
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("subscribed", false);
+            editor.commit();
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("notification");
+            Toast.makeText(this, "Unscribed", Toast.LENGTH_SHORT).show();
+        }
+        //No subscription
+        else{
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("subscribed", true);
+            editor.commit();
+            FirebaseMessaging.getInstance().subscribeToTopic("notification");
+            Toast.makeText(this, "Subscribed to notifications", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
+
+
 }
 
 
