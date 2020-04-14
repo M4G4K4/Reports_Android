@@ -74,7 +74,6 @@ public class Login extends AppCompatActivity {
         boolean firstStart = settings.getBoolean("firstStart", true);
 
         if(firstStart) {
-
             FirebaseInstanceId.getInstance().getInstanceId()
                     .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                         @Override

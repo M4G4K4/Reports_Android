@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,7 +80,13 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-
+        FloatingActionButton fab2 = findViewById(R.id.fabMapNotification);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subscribeTopic();
+            }
+        });
 
 
     }
@@ -195,6 +202,11 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         queue.add(jsonArrayRequest);
     }
 
+
+
+    private void subscribeTopic(){
+        FirebaseMessaging.getInstance().subscribeToTopic("notification");
+    }
 }
 
 
