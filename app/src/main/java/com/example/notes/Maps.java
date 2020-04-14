@@ -57,14 +57,13 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
     FloatingActionButton fab,fab2;
 
-
+    SharedPreferences settings;
+    Boolean subscribed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        System.out.println("");
 
         try {
             requestReports();
@@ -97,7 +96,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-
+        verifySubscribeState();
 
     }
 
@@ -216,8 +215,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
 
 
     private void subscribeTopic(){
-        SharedPreferences settings = getSharedPreferences("subscribed", 0);
-        boolean subscribed = settings.getBoolean("subscribed", false);
+        settings = getSharedPreferences("subscribed", 0);
+        subscribed = settings.getBoolean("subscribed", false);
 
         //No Subscribed
         if(subscribed){
@@ -237,8 +236,16 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             Toast.makeText(this, "Subscribed to notifications", Toast.LENGTH_SHORT).show();
             fab2.setImageResource(R.drawable.ic_notifications_active_black_24dp);
         }
+    }
 
+    private void verifySubscribeState(){
+        settings = getSharedPreferences("subscribed", 0);
+        subscribed = settings.getBoolean("subscribed", false);
 
+        if(subscribed){
+            fab2.setImageResource(R.drawable.ic_notifications_active_black_24dp);
+        }else{
+            fab2.setImageResource(R.drawable.ic_notifications_off_black_24dp);        }
     }
 
 
