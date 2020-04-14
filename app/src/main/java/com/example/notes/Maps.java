@@ -55,6 +55,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
     ArrayList<HashMap<String, String>> location = new ArrayList<>();
 
 
+    FloatingActionButton fab,fab2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         Intent intent = getIntent();
         userID = intent.getIntExtra("ID",0);
 
-        FloatingActionButton fab = findViewById(R.id.fabmap);
+        fab = findViewById(R.id.fabmap);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +89,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-        FloatingActionButton fab2 = findViewById(R.id.fabMapNotification);
+        fab2 = findViewById(R.id.fabMapNotification);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,21 +219,23 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
         SharedPreferences settings = getSharedPreferences("subscribed", 0);
         boolean subscribed = settings.getBoolean("subscribed", false);
 
-        // Is Subscribed
+        //No Subscribed
         if(subscribed){
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("subscribed", false);
             editor.commit();
             FirebaseMessaging.getInstance().unsubscribeFromTopic("notification");
             Toast.makeText(this, "Unscribed", Toast.LENGTH_SHORT).show();
+            fab2.setImageResource(R.drawable.ic_notifications_off_black_24dp);
         }
-        //No subscription
+        //Is subscription
         else{
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("subscribed", true);
             editor.commit();
             FirebaseMessaging.getInstance().subscribeToTopic("notification");
             Toast.makeText(this, "Subscribed to notifications", Toast.LENGTH_SHORT).show();
+            fab2.setImageResource(R.drawable.ic_notifications_active_black_24dp);
         }
 
 
