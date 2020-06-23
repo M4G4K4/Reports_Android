@@ -223,7 +223,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("subscribed", false);
             editor.commit();
-            FirebaseMessaging.getInstance().unsubscribeFromTopic("notification");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("notification2");
             Toast.makeText(this, "Unscribed", Toast.LENGTH_SHORT).show();
             fab2.setImageResource(R.drawable.ic_notifications_off_black_24dp);
         }
@@ -232,7 +232,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("subscribed", true);
             editor.commit();
-            FirebaseMessaging.getInstance().subscribeToTopic("notification");
+            FirebaseMessaging.getInstance().subscribeToTopic("notification2");
             Toast.makeText(this, "Subscribed to notifications", Toast.LENGTH_SHORT).show();
             fab2.setImageResource(R.drawable.ic_notifications_active_black_24dp);
         }

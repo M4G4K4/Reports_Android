@@ -57,7 +57,6 @@ public class popup extends AppCompatActivity {
 
     // Imgur API
     String ClientID = "917669a10ae9a08";
-    String ClientSecreat = "ec6a7a3c715b601811debe8781e54c4f928964b2";
 
 
     Boolean SaveBtn = false;
